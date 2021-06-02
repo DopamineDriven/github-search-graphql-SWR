@@ -21231,6 +21231,19 @@ export type GitHubReactablePartialFragment =
 	| GitHubReactablePartial_TeamDiscussion_Fragment
 	| GitHubReactablePartial_TeamDiscussionComment_Fragment;
 
+export type GitHubRepoTopicPartialFragment = {
+	__typename?: 'RepositoryTopic';
+} & {
+	topic: { __typename?: 'Topic' } & Pick<
+		Topic,
+		'stargazerCount' | 'name' | 'viewerHasStarred' | 'id'
+	> & {
+			relatedTopics: Array<
+				{ __typename?: 'Topic' } & Pick<Topic, 'name' | 'id'>
+			>;
+		};
+};
+
 export type GitHubUserAtomicPartialFragment = {
 	__typename?: 'User';
 } & Pick<
@@ -21531,6 +21544,22 @@ export type GitHubRepoPartialFragment = {
 				__typename?: 'Language';
 			} & GitHubLanguagePartialFragment
 		>;
+		repositoryTopics: {
+			__typename?: 'RepositoryTopicConnection';
+		} & Pick<RepositoryTopicConnection, 'totalCount'> & {
+				pageInfo: {
+					__typename?: 'PageInfo';
+				} & GitHubPageInfoPartialFragment;
+				nodes?: Maybe<
+					Array<
+						Maybe<
+							{
+								__typename?: 'RepositoryTopic';
+							} & GitHubRepoTopicPartialFragment
+						>
+					>
+				>;
+			};
 	};
 
 export type GitHubUserDetailPartialFragment = {
@@ -21895,6 +21924,20 @@ export const GitHubLanguagesPartialFragmentDoc = gql`
 	${GitHubPageInfoPartialFragmentDoc}
 	${GitHubLanguagePartialFragmentDoc}
 `;
+export const GitHubRepoTopicPartialFragmentDoc = gql`
+	fragment GitHubRepoTopicPartial on RepositoryTopic {
+		topic {
+			stargazerCount
+			name
+			viewerHasStarred
+			id
+			relatedTopics {
+				name
+				id
+			}
+		}
+	}
+`;
 export const GitHubRepoPartialFragmentDoc = gql`
 	fragment GitHubRepoPartial on Repository {
 		name
@@ -21923,8 +21966,19 @@ export const GitHubRepoPartialFragmentDoc = gql`
 		primaryLanguage {
 			...GitHubLanguagePartial
 		}
+		repositoryTopics(first: 10) {
+			pageInfo {
+				...GitHubPageInfoPartial
+			}
+			totalCount
+			nodes {
+				...GitHubRepoTopicPartial
+			}
+		}
 	}
 	${GitHubLanguagePartialFragmentDoc}
+	${GitHubPageInfoPartialFragmentDoc}
+	${GitHubRepoTopicPartialFragmentDoc}
 `;
 export const GitHubUserAtomicPartialFragmentDoc = gql`
 	fragment GitHubUserAtomicPartial on User {

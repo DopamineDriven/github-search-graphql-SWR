@@ -1,0 +1,12 @@
+fragment GitHubRepoTopicPartial on RepositoryTopic {
+	topic {
+		stargazerCount
+		name
+		viewerHasStarred
+		id
+		relatedTopics {
+			name
+			id
+		}
+	}
+}

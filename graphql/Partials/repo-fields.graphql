@@ -1,4 +1,6 @@
 # import GitHubLanguagePartial from "./atomic-language-fields.graphql"
+# import GitHubRepoTopicPartial from "./atomic-repo-topic-fields.graphql"
+# import GitHubPageInfoPartial from "./atomic-page-info-fields.graphql"
 
 fragment GitHubRepoPartial on Repository {
 	name
@@ -26,5 +28,14 @@ fragment GitHubRepoPartial on Repository {
 	isInOrganization
 	primaryLanguage {
 		...GitHubLanguagePartial
+	}
+	repositoryTopics(first: 10) {
+		pageInfo {
+			...GitHubPageInfoPartial
+		}
+		totalCount
+		nodes {
+			...GitHubRepoTopicPartial
+		}
 	}
 }
