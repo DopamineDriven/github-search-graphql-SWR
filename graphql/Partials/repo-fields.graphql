@@ -1,0 +1,30 @@
+# import GitHubLanguagePartial from "./atomic-language-fields.graphql"
+
+fragment GitHubRepoPartial on Repository {
+	name
+	stargazerCount
+	forkCount
+	id
+	owner {
+		id
+		login
+	}
+	url
+	nameWithOwner
+	description
+	name
+	isFork
+	isPrivate
+	isArchived
+	createdAt
+	updatedAt
+	homepageUrl
+	stargazerCount
+	forkCount
+	openGraphImageUrl
+	isArchived
+	isInOrganization
+	primaryLanguage {
+		...GitHubLanguagePartial
+	}
+}

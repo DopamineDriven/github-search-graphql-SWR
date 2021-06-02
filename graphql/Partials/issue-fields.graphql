@@ -1,0 +1,17 @@
+# import GitHubActorPartial from "./atomic-actor-fields.graphql"
+
+fragment GitHubIssuePartial on Issue {
+	id
+	url
+	bodyUrl
+	number
+	title
+	body
+	bodyText
+	bodyHTML
+	createdAt
+	updatedAt
+	author {
+		...GitHubActorPartial
+	}
+}

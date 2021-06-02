@@ -1,0 +1,5 @@
+fragment GitHubActorPartial on Actor {
+    avatarUrl(size: 250)
+    url
+    login
+}

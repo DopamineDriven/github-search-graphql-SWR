@@ -1,0 +1,52 @@
+# import GitHubLanguagePartial from "../Partials/atomic-language-fields.graphql"
+# import GitHubPageInfoPartial from "../Partials/atomic-page-info-fields.graphql"
+# import GitHubRepoPartial from "../Partials/repo-fields.graphql"
+# import GitHubUserDetailPartial from "../Partials/user-detail-fields.graphql"
+# import CommitCommentPartial from "../Partials/commit-comment-fields.graphql"
+
+query getReposWithDetails($login: String!) {
+	user(login: $login) {
+		...GitHubUserDetailPartial
+		repositories(
+			first: 20
+			orderBy: { field: UPDATED_AT, direction: DESC }
+		) {
+			totalCount
+			pageInfo {
+				...GitHubPageInfoPartial
+			}
+			edges {
+				cursor
+				node {
+					...GitHubRepoPartial
+					issues(
+						first: 1
+						states: [OPEN]
+						orderBy: { field: UPDATED_AT, direction: DESC }
+					) {
+						totalCount
+						pageInfo {
+							...GitHubPageInfoPartial
+						}
+						nodes {
+							createdAt
+							title
+						}
+					}
+					commitComments(first: 3) {
+						totalCount
+						pageInfo {
+							...GitHubPageInfoPartial
+						}
+						edges {
+							cursor
+							node {
+								...CommitCommentPartial
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

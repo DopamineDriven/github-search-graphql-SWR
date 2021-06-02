@@ -1,0 +1,24 @@
+# import GitHubPageInfoPartial from "./atomic-page-info-fields.graphql"
+# import GitHubReactablePartial from "./atomic-reactable-fields.graphql"
+
+fragment GitHubReactionsPartial on ReactionConnection {
+	totalCount
+	pageInfo {
+		...GitHubPageInfoPartial
+	}
+	edges {
+		cursor
+		node {
+			content
+			id
+			reactable {
+				...GitHubReactablePartial
+			}
+			user {
+				id
+				name
+				login
+			}
+		}
+	}
+}

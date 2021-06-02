@@ -1,0 +1,6 @@
+fragment GitHubLabelPartial on Label {
+	name
+	color
+	description
+	id
+}

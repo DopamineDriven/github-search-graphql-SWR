@@ -1,0 +1,23 @@
+fragment GitHubUserAtomicPartial on User {
+	id
+	bio
+	twitterUsername
+	login
+	location
+	email
+	company
+	createdAt
+	name
+	isViewer
+	anyPinnableItems(type: REPOSITORY)
+	avatarUrl(size: 250)
+	starredRepositories {
+		totalCount
+	}
+	followers {
+		totalCount
+	}
+	following {
+		totalCount
+	}
+}

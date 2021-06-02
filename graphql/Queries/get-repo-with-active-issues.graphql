@@ -1,0 +1,71 @@
+# import GitHubLanguagePartial from "./Partials/atomic-language-fields.graphql"
+# import GitHubLanguagesPartial from "../Partials/language-fields.graphql"
+# import GitHubPageInfoPartial from "./Partials/atomic-page-info-fields.graphql"
+# import GitHubRepoPartial from "./Partials/atomic/repo-fields.graphql"
+# import GitHubUserDetailPartial from "../Partials/user-detail-fields.graphql"
+# import CommitCommentPartial from "../Partials/commit-comment-fields.graphql"
+# import GitHubLabelPartial from "../Partials/atomic-label-fields.graphql"
+# import GitHubIssuePartial from "../Partials/issue-fields.graphql"
+# import GitHubReactionsPartial from "../Partials/reactions-fields.graphql"
+# import GitHubIssueCommentFields from "../Partials/issue-comment-fields.graphql"
+
+query getRepoByLoginWithDetails(
+	$login: String!
+	$name: String!
+) {
+	user(login: $login) {
+		...GitHubUserDetailPartial
+		repository(name: $name) {
+			...GitHubRepoPartial
+			commitComments(last: 3) {
+				totalCount
+				pageInfo {
+					...GitHubPageInfoPartial
+				}
+				nodes {
+					...CommitCommentPartial
+				}
+			}
+			languages(first: 10) {
+				...GitHubLanguagesPartial
+			}
+			labels(
+				first: 10
+				orderBy: { field: NAME, direction: DESC }
+			) {
+				pageInfo {
+					...GitHubPageInfoPartial
+				}
+				totalCount
+				nodes {
+					...GitHubLabelPartial
+				}
+			}
+			issues(
+				first: 10
+				states: [OPEN]
+				orderBy: { field: UPDATED_AT, direction: DESC }
+			) {
+				totalCount
+				pageInfo {
+					...GitHubPageInfoPartial
+				}
+				edges {
+					cursor
+					node {
+						...GitHubIssuePartial
+						reactions(first: 100) {
+							...GitHubReactionsPartial
+						}
+						comments(
+							first: 10
+							orderBy: { field: UPDATED_AT, direction: DESC }
+						) {
+							...GitHubIssueCommentFields
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,19 @@
+# import GitHubPageInfoPartial from "./atomic-page-info-fields.graphql"
+
+fragment GitHubReactablePartial on Reactable {
+	reactionGroups {
+		content
+		viewerHasReacted
+		users {
+			pageInfo {
+				...GitHubPageInfoPartial
+			}
+			totalCount
+			nodes {
+				name
+				login
+				id
+			}
+		}
+	}
+}

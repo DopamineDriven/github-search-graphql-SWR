@@ -1,0 +1,17 @@
+# import GitHubPageInfoPartial from './atomic-page-info-fields.graphql'
+# import GitHubLanguagePartial from './atomic-language-fields.graphql'
+
+fragment GitHubLanguagesPartial on LanguageConnection {
+	totalSize
+	totalCount
+	pageInfo {
+		...GitHubPageInfoPartial
+	}
+	edges {
+		cursor
+		size
+		node {
+			...GitHubLanguagePartial
+		}
+	}
+}

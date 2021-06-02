@@ -1,0 +1,25 @@
+# import GitHubActorPartial from "./atomic-actor-fields.graphql"
+# import GitHubPageInfoPartial from "./atomic-page-info-fields.graphql"
+# import GitHubReactionsPartial from "./reactions-fields.graphql"
+
+fragment GitHubIssueCommentFields on IssueCommentConnection {
+	totalCount
+	pageInfo {
+		...GitHubPageInfoPartial
+	}
+	nodes {
+		bodyText
+		author {
+			...GitHubActorPartial
+		}
+		createdAt
+		updatedAt
+		reactionGroups {
+			content
+			viewerHasReacted
+		}
+		reactions(first: 100) {
+			...GitHubReactionsPartial
+		}
+	}
+}
