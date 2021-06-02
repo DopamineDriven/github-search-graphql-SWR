@@ -21257,6 +21257,7 @@ export type GitHubUserAtomicPartialFragment = {
 	| 'company'
 	| 'createdAt'
 	| 'name'
+	| 'websiteUrl'
 	| 'isViewer'
 	| 'anyPinnableItems'
 	| 'avatarUrl'
@@ -21991,6 +21992,7 @@ export const GitHubUserAtomicPartialFragmentDoc = gql`
 		company
 		createdAt
 		name
+		websiteUrl
 		isViewer
 		anyPinnableItems(type: REPOSITORY)
 		avatarUrl(size: 250)

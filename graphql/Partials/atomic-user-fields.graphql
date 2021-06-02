@@ -8,6 +8,7 @@ fragment GitHubUserAtomicPartial on User {
 	company
 	createdAt
 	name
+	websiteUrl
 	isViewer
 	anyPinnableItems(type: REPOSITORY)
 	avatarUrl(size: 250)
