@@ -1,0 +1,5 @@
+fragment GitHubHovercardContextFields on HovercardContext {
+	__typename
+	octicon
+	message
+}

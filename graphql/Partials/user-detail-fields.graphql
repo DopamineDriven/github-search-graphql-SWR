@@ -3,6 +3,7 @@
 # import GitHubUserOrgAssociationPartial from "./atomic-user-org-fields.graphql"
 # import GitHubUserStatusPartial from "./atomic-user-status-fields.graphql"
 # import GitHubUserAtomicPartial from "./atomic-user-fields.graphql"
+# import GitHubHovercardFields from "./hovercard-fields.graphql"
 
 fragment GitHubUserDetailPartial on User {
 	...GitHubUserAtomicPartial
@@ -14,6 +15,9 @@ fragment GitHubUserDetailPartial on User {
 		nodes {
 			...GitHubUserOrgAssociationPartial
 		}
+	}
+	hovercard {
+		...GitHubHovercardFields
 	}
 	status {
 		...GitHubUserStatusPartial

@@ -1,0 +1,25 @@
+# import GitHubHovercardContextFields from "./atomic-hovercard-context-fields.graphql"
+
+fragment GitHubHovercardFields on Hovercard {
+	contexts {
+		...GitHubHovercardContextFields
+		... on GenericHovercardContext {
+			...GitHubHovercardContextFields
+		}
+		... on OrganizationsHovercardContext {
+			...GitHubHovercardContextFields
+		}
+		... on OrganizationTeamsHovercardContext {
+			...GitHubHovercardContextFields
+		}
+		... on ReviewStatusHovercardContext {
+			...GitHubHovercardContextFields
+		}
+		... on HovercardContext {
+			...GitHubHovercardContextFields
+		}
+		... on ViewerHovercardContext {
+			...GitHubHovercardContextFields
+		}
+	}
+}

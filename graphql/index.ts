@@ -20861,6 +20861,43 @@ export type GitHubActorPartialFragment =
 	| GitHubActorPartial_Organization_Fragment
 	| GitHubActorPartial_User_Fragment;
 
+type GitHubHovercardContextFields_GenericHovercardContext_Fragment =
+	{ __typename: 'GenericHovercardContext' } & Pick<
+		GenericHovercardContext,
+		'octicon' | 'message'
+	>;
+
+type GitHubHovercardContextFields_OrganizationTeamsHovercardContext_Fragment =
+	{ __typename: 'OrganizationTeamsHovercardContext' } & Pick<
+		OrganizationTeamsHovercardContext,
+		'octicon' | 'message'
+	>;
+
+type GitHubHovercardContextFields_OrganizationsHovercardContext_Fragment =
+	{ __typename: 'OrganizationsHovercardContext' } & Pick<
+		OrganizationsHovercardContext,
+		'octicon' | 'message'
+	>;
+
+type GitHubHovercardContextFields_ReviewStatusHovercardContext_Fragment =
+	{ __typename: 'ReviewStatusHovercardContext' } & Pick<
+		ReviewStatusHovercardContext,
+		'octicon' | 'message'
+	>;
+
+type GitHubHovercardContextFields_ViewerHovercardContext_Fragment =
+	{ __typename: 'ViewerHovercardContext' } & Pick<
+		ViewerHovercardContext,
+		'octicon' | 'message'
+	>;
+
+export type GitHubHovercardContextFieldsFragment =
+	| GitHubHovercardContextFields_GenericHovercardContext_Fragment
+	| GitHubHovercardContextFields_OrganizationTeamsHovercardContext_Fragment
+	| GitHubHovercardContextFields_OrganizationsHovercardContext_Fragment
+	| GitHubHovercardContextFields_ReviewStatusHovercardContext_Fragment
+	| GitHubHovercardContextFields_ViewerHovercardContext_Fragment;
+
 export type GitHubLabelPartialFragment = {
 	__typename?: 'Label';
 } & Pick<Label, 'name' | 'color' | 'description' | 'id'>;
@@ -21319,6 +21356,38 @@ export type CommitCommentPartialFragment = {
 		>;
 	};
 
+export type GitHubHovercardFieldsFragment = {
+	__typename?: 'Hovercard';
+} & {
+	contexts: Array<
+		| ({
+				__typename?: 'GenericHovercardContext';
+		  } & GitHubHovercardContextFields_GenericHovercardContext_Fragment &
+				GitHubHovercardContextFields_GenericHovercardContext_Fragment &
+				GitHubHovercardContextFields_GenericHovercardContext_Fragment)
+		| ({
+				__typename?: 'OrganizationTeamsHovercardContext';
+		  } & GitHubHovercardContextFields_OrganizationTeamsHovercardContext_Fragment &
+				GitHubHovercardContextFields_OrganizationTeamsHovercardContext_Fragment &
+				GitHubHovercardContextFields_OrganizationTeamsHovercardContext_Fragment)
+		| ({
+				__typename?: 'OrganizationsHovercardContext';
+		  } & GitHubHovercardContextFields_OrganizationsHovercardContext_Fragment &
+				GitHubHovercardContextFields_OrganizationsHovercardContext_Fragment &
+				GitHubHovercardContextFields_OrganizationsHovercardContext_Fragment)
+		| ({
+				__typename?: 'ReviewStatusHovercardContext';
+		  } & GitHubHovercardContextFields_ReviewStatusHovercardContext_Fragment &
+				GitHubHovercardContextFields_ReviewStatusHovercardContext_Fragment &
+				GitHubHovercardContextFields_ReviewStatusHovercardContext_Fragment)
+		| ({
+				__typename?: 'ViewerHovercardContext';
+		  } & GitHubHovercardContextFields_ViewerHovercardContext_Fragment &
+				GitHubHovercardContextFields_ViewerHovercardContext_Fragment &
+				GitHubHovercardContextFields_ViewerHovercardContext_Fragment)
+	>;
+};
+
 export type GitHubIssueCommentFieldsFragment = {
 	__typename?: 'IssueCommentConnection';
 } & Pick<IssueCommentConnection, 'totalCount'> & {
@@ -21582,6 +21651,9 @@ export type GitHubUserDetailPartialFragment = {
 				>
 			>;
 		};
+	hovercard: {
+		__typename?: 'Hovercard';
+	} & GitHubHovercardFieldsFragment;
 	status?: Maybe<
 		{
 			__typename?: 'UserStatus';
@@ -22017,6 +22089,39 @@ export const GitHubUserOrgAssociationPartialFragmentDoc = gql`
 		avatarUrl(size: 250)
 	}
 `;
+export const GitHubHovercardContextFieldsFragmentDoc = gql`
+	fragment GitHubHovercardContextFields on HovercardContext {
+		__typename
+		octicon
+		message
+	}
+`;
+export const GitHubHovercardFieldsFragmentDoc = gql`
+	fragment GitHubHovercardFields on Hovercard {
+		contexts {
+			...GitHubHovercardContextFields
+			... on GenericHovercardContext {
+				...GitHubHovercardContextFields
+			}
+			... on OrganizationsHovercardContext {
+				...GitHubHovercardContextFields
+			}
+			... on OrganizationTeamsHovercardContext {
+				...GitHubHovercardContextFields
+			}
+			... on ReviewStatusHovercardContext {
+				...GitHubHovercardContextFields
+			}
+			... on HovercardContext {
+				...GitHubHovercardContextFields
+			}
+			... on ViewerHovercardContext {
+				...GitHubHovercardContextFields
+			}
+		}
+	}
+	${GitHubHovercardContextFieldsFragmentDoc}
+`;
 export const GitHubUserStatusPartialFragmentDoc = gql`
 	fragment GitHubUserStatusPartial on UserStatus {
 		message
@@ -22055,6 +22160,9 @@ export const GitHubUserDetailPartialFragmentDoc = gql`
 				...GitHubUserOrgAssociationPartial
 			}
 		}
+		hovercard {
+			...GitHubHovercardFields
+		}
 		status {
 			...GitHubUserStatusPartial
 		}
@@ -22071,6 +22179,7 @@ export const GitHubUserDetailPartialFragmentDoc = gql`
 	${GitHubUserAtomicPartialFragmentDoc}
 	${GitHubPageInfoPartialFragmentDoc}
 	${GitHubUserOrgAssociationPartialFragmentDoc}
+	${GitHubHovercardFieldsFragmentDoc}
 	${GitHubUserStatusPartialFragmentDoc}
 	${GitHubPinnableItemPartialFragmentDoc}
 `;
