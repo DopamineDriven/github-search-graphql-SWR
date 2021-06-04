@@ -3,6 +3,8 @@ import '@/styles/chrome-bug.css';
 
 import { AppProps, NextWebVitalsMetric } from 'next/app';
 import { useEffect, FC } from 'react';
+import { useRouter } from 'next/router';
+import * as gtag from '@/lib/analytics';
 
 const Noop: FC = ({ children }) => <>{children}</>;
 export default function NextApp({
@@ -14,6 +16,24 @@ export default function NextApp({
 	useEffect(() => {
 		document.body.classList?.remove('loading');
 	}, []);
+
+	const router = useRouter();
+
+	useEffect(() => {
+		const handleRouteChange = (url: URL) => {
+			gtag.pageview(url);
+		};
+		router.events.on(
+			'routeChangeComplete',
+			handleRouteChange
+		);
+		return () => {
+			router.events.off(
+				'routeChangeComplete',
+				handleRouteChange
+			);
+		};
+	}, [router.events]);
 
 	return (
 		<>
