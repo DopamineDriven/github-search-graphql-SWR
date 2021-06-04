@@ -53,7 +53,7 @@ const TextEnhancer: FC<TextEnhancerProps> = ({
 	return (
 		<>
 			<ReactMarkdown
-				className={className}
+				className={className ?? ''}
 				skipHtml={false}
 				children={textToTransform}
 				remarkPlugins={[gfm]}
